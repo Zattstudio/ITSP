@@ -69,7 +69,7 @@ public class Grid extends GameObject {
 				
 			}
 			currentX = getPosX();
-			currentY += tileSize + offset;;
+			currentY += tileSize + offset;
 		}
 		
 	}
