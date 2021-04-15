@@ -86,24 +86,7 @@ int zuege = 0;
 	    	drawmsg += "Uatsch aut for se woll!";
 	    }
     }
-    
-    public int directionPlayer(GameContainer gc, StateBasedGame sbg, int i){    //test method
-            int x = 0;
-            Input inp = gc.getInput();
-            if (inp.isKeyPressed(Input.KEY_LEFT)) {
-                  x = 1;  
-                }
-	    if (inp.isKeyPressed(Input.KEY_RIGHT)) {
-                  x = 2;
-		}
-	    else if (inp.isKeyPressed(Input.KEY_UP)) {
-                  x = 3;
-		}
-	    else if (inp.isKeyPressed(Input.KEY_DOWN)) {
-                  x = 4;
-		}
-            return x;
-    }                                                                           //test method
+                                                                            //test method
     
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
@@ -112,10 +95,12 @@ int zuege = 0;
 	    if (inp.isKeyPressed(Input.KEY_LEFT)) {
 	    	dirX = -1;
 	    	move(dirX, dirY);
+                grid.playerLeft = true;
 	    }
 	    else if (inp.isKeyPressed(Input.KEY_RIGHT)) {
 			dirX = 1;
 			move(dirX, dirY);
+                        grid.playerLeft = false;
 		}
 	    else if (inp.isKeyPressed(Input.KEY_UP)) {
 			dirY = -1;

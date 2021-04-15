@@ -15,6 +15,8 @@ public class Grid extends GameObject {
 	private int offset = 5;
 	private int tileSize;
 	private MapHandler m;
+        
+        public boolean playerLeft = true;
 	
 	private Image ground;
 	private Image rock;
@@ -51,7 +53,6 @@ public class Grid extends GameObject {
 	public void draw(Graphics gfx) {
                 
             
-                String img = "";
 		int currentX = getPosX();
 		int currentY = getPosY();
 		for (int i = 0; i < yHeight; i++) {
@@ -68,7 +69,8 @@ public class Grid extends GameObject {
 				}
                                 
 				if (j == m.getCurrentX() && i == m.getCurrentY()) {
-                                        player.draw(currentX, currentY, tileSize/player.getWidth());    //Player = PlayerImage
+                                        
+                                        player.getFlippedCopy(!playerLeft, false).draw(currentX, currentY, tileSize/player.getWidth());    //Player = PlayerImage
 					//gfx.fillArc(currentX, currentY, tileSize, tileSize, 0f, 360f);    Player=Circle
 				}
 				//else gfx.drawRect(currentX, currentY, tileSize, tileSize);
