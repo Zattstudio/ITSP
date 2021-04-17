@@ -27,7 +27,6 @@ MapHandler mHandler;
 Grid grid;
 SidePanel panel;
 
-
 Background bg = new Background("assets/gfx/scene/bg1.png", 4);
 
 int zuege = 0;
@@ -96,21 +95,29 @@ int zuege = 0;
 	    	dirX = -1;
 	    	move(dirX, dirY);
                 grid.playerLeft = true;
+                grid.front = false;
+                grid.back = false;
 	    }
 	    else if (inp.isKeyPressed(Input.KEY_RIGHT)) {
 			dirX = 1;
 			move(dirX, dirY);
                         grid.playerLeft = false;
+                        grid.front = false;
+                        grid.back = false;
 		}
 	    else if (inp.isKeyPressed(Input.KEY_UP)) {
 			dirY = -1;
 			move(dirX, dirY);
+                        grid.front = false;
+                        grid.back = true;
 		}
 	    else if (inp.isKeyPressed(Input.KEY_DOWN)) {
 			dirY = 1;
 			move(dirX, dirY);
+                        grid.front = true;
+                        grid.back = false;
 		}
-	    
+	
 	    
 	    
     }
