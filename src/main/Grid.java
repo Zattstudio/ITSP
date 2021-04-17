@@ -2,14 +2,13 @@ package main;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Input;                                                 //test
+                                             //test
 
 import map.MapHandler;
 
 
 public class Grid extends GameObject {
 	
-        private GameState gs;                                                   //test
 	private int xWidth;
 	private int yHeight;
 	private int offset = 5;
@@ -23,10 +22,9 @@ public class Grid extends GameObject {
 	private Image ground;
 	private Image rock;
 	private Image end_door;
-        private Image player_side;                                                   //test
+        private Image player_side;
 	private Image player_front;
         private Image player_back;
-        private Input inp;                                                      //test
 	
 	public Grid(int xWidth, int yHeight, int tileSize, int offset, MapHandler m) {
 		super();
@@ -40,7 +38,7 @@ public class Grid extends GameObject {
 			rock = new Image("assets/gfx/scene/testrock.png");
 			ground = new Image ("assets/gfx/scene/groundtest.png");
 			end_door = new Image ("assets/gfx/scene/enddoor.png");
-                        player_side = new Image ("assets/gfx/scene/player.png");     //test
+                        player_side = new Image ("assets/gfx/scene/player.png");
                         player_front = new Image ("assets/gfx/scene/player_front.png");
                         player_back = new Image ("assets/gfx/scene/player_back.png");
                 } catch (SlickException e) {
@@ -50,7 +48,7 @@ public class Grid extends GameObject {
 		rock.setFilter(Image.FILTER_NEAREST);
 		ground.setFilter(Image.FILTER_NEAREST);
 		end_door.setFilter(Image.FILTER_NEAREST);
-                player_side.setFilter(Image.FILTER_NEAREST);                         //test
+                player_side.setFilter(Image.FILTER_NEAREST);                    
                 player_front.setFilter(Image.FILTER_NEAREST);
                 player_back.setFilter(Image.FILTER_NEAREST);
         }

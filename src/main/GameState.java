@@ -30,6 +30,7 @@ SidePanel panel;
 Background bg = new Background("assets/gfx/scene/bg1.png", 4);
 
 int zuege = 0;
+int id = 1;                                                                     //1 damit zuerst Level 1 geladen wird
 
     @Override
     public int getID() {
@@ -39,7 +40,7 @@ int zuege = 0;
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         mHandler = new MapHandler();
-        mHandler.changeMap(1);
+        mHandler.changeMap(id);                                                 //Change Map
         //mHandler.prettyPrint();
         Vector2 mapSize = mHandler.getMaxExtents();
         grid = new Grid((int)mapSize.x, (int)mapSize.y, 100, 0, mHandler);
@@ -80,12 +81,15 @@ int zuege = 0;
 			if(nextBlock=='x') {
 				drawmsg += "Du bist in eine Pf�tze gelaufen";
 			}
+                        if(nextBlock=='e') {                                    //
+                            id++;                                               //Wenn next Block = e, nächstes Level
+                            mHandler.changeMap(id);                             //
+			}                                                       //
 	    }
 	    else {
 	    	drawmsg += "Uatsch aut for se woll!";
 	    }
     }
-                                                                            //test method
     
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
@@ -108,14 +112,12 @@ int zuege = 0;
 	    else if (inp.isKeyPressed(Input.KEY_UP)) {
 			dirY = -1;
 			move(dirX, dirY);
-                        grid.front = false;
                         grid.back = true;
 		}
 	    else if (inp.isKeyPressed(Input.KEY_DOWN)) {
 			dirY = 1;
 			move(dirX, dirY);
                         grid.front = true;
-                        grid.back = false;
 		}
 	
 	    
