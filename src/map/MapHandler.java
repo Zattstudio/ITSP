@@ -1,5 +1,6 @@
 package map;
 
+import java.io.File;
 import utility.Vector2;
 
 public class MapHandler {
@@ -46,6 +47,11 @@ public class MapHandler {
 	}
 	
 	public void changeMap(int nr) {
+            File directory=new File("assets/levels/"); //Zähle anz. and dateien
+            int fileCount=directory.list().length; 
+            if (nr > fileCount){ //wenn nummer nicht in map
+                return;
+            }
 		map = mLoader.loadMap(Integer.toString(nr));
 		mapData = map.data;
 		findPlayer();

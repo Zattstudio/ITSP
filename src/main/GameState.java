@@ -30,7 +30,7 @@ SidePanel panel;
 Background bg = new Background("assets/gfx/scene/bg1.png", 4);
 
 int zuege = 0;
-int id = 1;                                                                     //1 damit zuerst Level 1 geladen wird
+int mapId = 1;                                                                     //1 damit zuerst Level 1 geladen wird
 
     @Override
     public int getID() {
@@ -40,7 +40,7 @@ int id = 1;                                                                     
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         mHandler = new MapHandler();
-        mHandler.changeMap(id);                                                 //Change Map
+        mHandler.changeMap(mapId);                                                 //Change Map
         //mHandler.prettyPrint();
         Vector2 mapSize = mHandler.getMaxExtents();
         grid = new Grid((int)mapSize.x, (int)mapSize.y, 100, 0, mHandler);
@@ -60,6 +60,7 @@ int id = 1;                                                                     
     	
     	grphcs.drawString("Zuege: " + zuege, 10, 40);
     	grid.draw(grphcs);
+        grphcs.drawString("Map: "+ mapId,10, 60);
     	
     	
     	//draw last
@@ -67,10 +68,7 @@ int id = 1;                                                                     
     }
     
     void move(int dirX, int dirY) {
-    	drawmsg = "";
-    	if(zuege == 0) {
-    		return;
-		}
+    	if(zuege == 0) {return;} // keine zuege mehr
 	    char nextBlock = mHandler.checkRelative(dirX, dirY);
 	    if (nextBlock  != '#' && nextBlock  != ' ' ){
 			mHandler.setCurrentX(mHandler.getCurrentX()+dirX);
@@ -79,15 +77,17 @@ int id = 1;                                                                     
 			zuege -= 1;
 			drawmsg = "Züge: " + zuege + "\n";
 			if(nextBlock=='x') {
-				drawmsg += "Du bist in eine Pf�tze gelaufen";
+				//Pfütze
 			}
                         if(nextBlock=='e') {                                    //
-                            id++;                                               //Wenn next Block = e, nächstes Level
-                            mHandler.changeMap(id);                             //
+                            mapId++;                                               //Wenn next Block = e, nächstes Level
+                            mHandler.changeMap(mapId);  
+                            //Aktualisieren der map-voreinstellungen
+                            zuege = mHandler.getMap().turns;
 			}                                                       //
 	    }
 	    else {
-	    	drawmsg += "Uatsch aut for se woll!";
+	    	//Collision
 	    }
     }
     
