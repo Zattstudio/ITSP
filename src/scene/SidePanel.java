@@ -6,7 +6,12 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import main.GameObject;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Font;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
@@ -18,8 +23,8 @@ public class SidePanel  extends GameObject{
         int lives = 0;
         
         
-        //Font panelFont = new Font('', Font.BOLD, 32);
-        //TrueTypeFont panelTtf = new TrueTypeFont(font, true);
+        Font panelFont;
+        TrueTypeFont panelTtf;
         
 	public Button restartBtn = new Button("assets/gfx/menu/restart_button.png", new Vector2(1700, 500), 64, 64);
 
@@ -29,6 +34,17 @@ public class SidePanel  extends GameObject{
 	}
         
         public SidePanel(){
+            try { // Load font
+                this.panelFont = Font.createFont(Font.TRUETYPE_FONT, new File("assets/gfx/Pixeled.ttf"));
+                
+                panelTtf = new TrueTypeFont(panelFont, true);
+            } catch (FontFormatException ex) {
+                Logger.getLogger(SidePanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(SidePanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
             try {
                     // load image 
                     treeImg = new Image("assets/gfx/scene/ui_tree.png");
@@ -44,7 +60,7 @@ public class SidePanel  extends GameObject{
 		//gfx.fillRect(1300, 0, 620, 1080);
                 
                 treeImg.draw(1920-treeImg.getWidth()*5, 0, 5);
-                
+                panelTtf.drawString(1700, 200, "Hallo");
                 drawLifeBar(lives, gfx );
 		restartBtn.draw(gfx);
 		

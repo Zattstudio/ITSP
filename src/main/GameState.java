@@ -79,7 +79,7 @@ int mapId = 1;                                                                  
     void move(int dirX, int dirY) {
     	if(zuege == 0) {return;} // keine zuege mehr
 	    char nextBlock = mHandler.checkRelative(dirX, dirY);
-	    if (nextBlock  != '#' && nextBlock  != ' ' ){
+	    if (nextBlock  != '#' && nextBlock  != ' '&& nextBlock != '+' ){
 			mHandler.setCurrentX(mHandler.getCurrentX()+dirX);
 			mHandler.setCurrentY(mHandler.getCurrentY()+dirY);
 			
