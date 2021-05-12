@@ -37,6 +37,12 @@ int mapId = 1;                                                                  
         return GameState.ID;
     }
 
+    public void resetMap(){
+        zuege = mHandler.getMap().turns;
+        mHandler.changeMap(mapId);   
+    }
+    
+    
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         mHandler = new MapHandler();
@@ -95,6 +101,12 @@ int mapId = 1;                                                                  
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
 	    int dirX = 0,dirY = 0;
 	    Input inp = gc.getInput();
+            
+            // update side panel
+            if (panel.restartBtn.mouseIsOnButton(new Vector2(inp.getMouseX(), inp.getMouseY())) & inp.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+			resetMap();
+            }
+            
 	    if (inp.isKeyPressed(Input.KEY_LEFT)) {
 	    	dirX = -1;
 	    	move(dirX, dirY);
@@ -121,9 +133,7 @@ int mapId = 1;                                                                  
                         grid.front = true;
                         grid.back = false;
 		}
-            else if (panel.restartBtn.mouseIsOnButton(new Vector2(inp.getMouseX(), inp.getMouseY())) & inp.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-			sbg.enterState(1);
-		}
+            
 	
 	    
 	    
