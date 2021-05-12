@@ -113,11 +113,16 @@ int id = 1;                                                                     
 			dirY = -1;
 			move(dirX, dirY);
                         grid.back = true;
+                        grid.front = false;
 		}
 	    else if (inp.isKeyPressed(Input.KEY_DOWN)) {
 			dirY = 1;
 			move(dirX, dirY);
                         grid.front = true;
+                        grid.back = false;
+		}
+            else if (panel.restartBtn.mouseIsOnButton(new Vector2(inp.getMouseX(), inp.getMouseY())) & inp.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+			sbg.enterState(1);
 		}
 	
 	    

@@ -10,7 +10,7 @@ import utility.Vector2;
 public class SidePanel  extends GameObject{
 	
 	
-	Button restartBtn = new Button("assets/gfx/menu/restart_button.png", new Vector2(1700, 100), 64, 64);
+	public Button restartBtn = new Button("assets/gfx/menu/restart_button.png", new Vector2(1700, 100), 64, 64);
 	@Override
 	public void draw(Graphics gfx) {
 		gfx.fillRect(1300, 0, 620, 1080);
