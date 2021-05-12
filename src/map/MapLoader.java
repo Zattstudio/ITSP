@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.File;
 
 public class MapLoader {
 	Gson gson;
@@ -14,6 +15,8 @@ public class MapLoader {
 
 	
 	public Map loadMap(String nr) {
+ 
+            
 		try {
 			gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
 			
