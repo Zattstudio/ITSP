@@ -22,6 +22,7 @@ public class Grid extends GameObject {
 	private Image ground;
 	private Image rock;
 	private Image end_door;
+        private Image puddle;
         private Image player_side;
 	private Image player_front;
         private Image player_back;
@@ -33,11 +34,12 @@ public class Grid extends GameObject {
 		this.tileSize = tileSize;
 		this.offset = offset;
 		this.m = m;
-		
+		// stupid solution as for batch loading but works for now
 		try {
 			rock = new Image("assets/gfx/scene/testrock.png");
 			ground = new Image ("assets/gfx/scene/groundtest.png");
 			end_door = new Image ("assets/gfx/scene/enddoor.png");
+                        puddle = new Image ("assets/gfx/scene/puddle.png");
                         player_side = new Image ("assets/gfx/scene/player.png");
                         player_front = new Image ("assets/gfx/scene/player_front.png");
                         player_back = new Image ("assets/gfx/scene/player_back.png");
@@ -45,9 +47,12 @@ public class Grid extends GameObject {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+                
+                //Setting filters so pixel images do not blur
 		rock.setFilter(Image.FILTER_NEAREST);
 		ground.setFilter(Image.FILTER_NEAREST);
 		end_door.setFilter(Image.FILTER_NEAREST);
+                puddle.setFilter(Image.FILTER_NEAREST);
                 player_side.setFilter(Image.FILTER_NEAREST);                    
                 player_front.setFilter(Image.FILTER_NEAREST);
                 player_back.setFilter(Image.FILTER_NEAREST);
@@ -69,6 +74,9 @@ public class Grid extends GameObject {
 				}
 				else if  ((char) m.getTile(j, i) == 'e') {
 					end_door.draw(currentX, currentY, tileSize/end_door.getWidth());
+				}
+                                else if  ((char) m.getTile(j, i) == 'x') {
+					puddle.draw(currentX, currentY, tileSize/puddle.getWidth());
 				}
                                 
 				if (j == m.getCurrentX() && i == m.getCurrentY()) {

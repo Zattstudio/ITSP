@@ -30,6 +30,8 @@ SidePanel panel;
 Background bg = new Background("assets/gfx/scene/bg1.png", 4);
 
 int zuege = 0;
+int playerLives = 3;
+
 int mapId = 1;                                                                     //1 damit zuerst Level 1 geladen wird
 
     @Override
@@ -45,6 +47,7 @@ int mapId = 1;                                                                  
     
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        playerLives = 3;
         mHandler = new MapHandler();
         mHandler.changeMap(mapId);                                                 //Change Map
         //mHandler.prettyPrint();
@@ -83,7 +86,7 @@ int mapId = 1;                                                                  
 			zuege -= 1;
 			drawmsg = "Züge: " + zuege + "\n";
 			if(nextBlock=='x') {
-				//Pfütze
+				playerLives -= 1;
 			}
                         if(nextBlock=='e') {                                    //
                             mapId++;                                               //Wenn next Block = e, nächstes Level
@@ -101,6 +104,8 @@ int mapId = 1;                                                                  
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
 	    int dirX = 0,dirY = 0;
 	    Input inp = gc.getInput();
+            
+            panel.panelUpdate(gc, sbg, playerLives);
             
             // update side panel
             if (panel.restartBtn.mouseIsOnButton(new Vector2(inp.getMouseX(), inp.getMouseY())) & inp.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
@@ -136,6 +141,17 @@ int mapId = 1;                                                                  
             
 	
 	    
-	    
+            if (playerLives <= 0){
+                // Wenn keine leben mehr reset komplett
+                this.init(gc, sbg);
+                sbg.enterState(1); // maybe add game over screen
+
+            }
+            if (zuege <= 0){
+            resetMap();
+            
+            }
     }
+    
+
 }
