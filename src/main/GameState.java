@@ -30,7 +30,7 @@ MapHandler mHandler;
 Grid grid;
 SidePanel panel;
 
-FadeInTransition transition = new FadeInTransition(Color.black, 1000);
+
 
 Background bg = new Background("assets/gfx/scene/bg1.png", 4);
 
@@ -52,7 +52,6 @@ int mapId = 1;                                                                  
     
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        transition.preRender(sbg, gc, gc.getGraphics());
         
         playerLives = 3;
         mHandler = new MapHandler();

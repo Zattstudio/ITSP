@@ -26,7 +26,7 @@ public class SidePanel  extends GameObject{
         Font panelFont;
         TrueTypeFont panelTtf;
         
-	public Button restartBtn = new Button("assets/gfx/menu/restart_button.png", new Vector2(1700, 500), 64, 64);
+	public Button restartBtn = new Button("assets/gfx/menu/restart_button.png", new Vector2(1790, 890), 128, 128);
 
 	
 	public void panelUpdate(GameContainer gc, StateBasedGame sbg, int player_lives) {
@@ -67,9 +67,8 @@ public class SidePanel  extends GameObject{
 	}
         
         private void drawLifeBar(int lives, Graphics gfx){
-            gfx.setColor(Color.gray);
+
             gfx.fillRect(1700, 550, (int)66*lives, 20);
-            gfx.setColor(Color.white);
         }
 
 }

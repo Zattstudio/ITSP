@@ -1,5 +1,6 @@
 package main;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -7,6 +8,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import scene.Background;
 import scene.Button;
@@ -57,7 +60,7 @@ public class MenuState extends BasicGameState {
 
 		
 		if (startBtn.mouseIsOnButton(new Vector2(inp.getMouseX(), inp.getMouseY())) & inp.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-			sbg.enterState(0);
+			sbg.enterState(0, new FadeOutTransition(Color.red), new FadeInTransition(Color.red));
 		}
 	}
 
