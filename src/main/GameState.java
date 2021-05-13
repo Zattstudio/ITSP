@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.image.BufferedImageOp;
 import java.io.IOException;
 
 import org.lwjgl.opengl.Display;
@@ -11,6 +12,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import map.MapHandler;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.state.transition.FadeInTransition;
 import scene.Background;
 import scene.SidePanel;
 import utility.Vector2;
@@ -26,6 +29,8 @@ String drawmsg = "";
 MapHandler mHandler;
 Grid grid;
 SidePanel panel;
+
+FadeInTransition transition = new FadeInTransition(Color.black, 1000);
 
 Background bg = new Background("assets/gfx/scene/bg1.png", 4);
 
@@ -47,6 +52,8 @@ int mapId = 1;                                                                  
     
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        transition.preRender(sbg, gc, gc.getGraphics());
+        
         playerLives = 3;
         mHandler = new MapHandler();
         mHandler.changeMap(mapId);                                                 //Change Map
@@ -58,6 +65,8 @@ int mapId = 1;                                                                  
         panel = new SidePanel();
         
         zuege = mHandler.getMap().turns;
+        
+        
     }
 
     @Override

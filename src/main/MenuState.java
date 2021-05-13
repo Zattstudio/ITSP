@@ -37,7 +37,7 @@ public class MenuState extends BasicGameState {
 		
 		
 		startBtn = new Button("assets/gfx/menu/start_button.png", new Vector2(gc.getWidth()/2, gc.getHeight()/2), 300, 120);
-		startBtn.drawDebug = true; // debug for checing button clickable area
+		//startBtn.drawDebug = true; // debug for checking button clickable area
 
 	}
 

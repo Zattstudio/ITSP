@@ -10,6 +10,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import main.GameState;
 import main.MenuState;
 import java.io.File;
+import main.SplashState;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.ScalableGame;
 import org.newdawn.slick.SlickException;
@@ -56,6 +57,7 @@ public class MainGame extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
+                this.addState(new SplashState());
 		this.addState(new MenuState());
 		this.addState(new GameState());
 		
