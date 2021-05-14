@@ -27,9 +27,12 @@ public class MapHandler {
 	final char playerChar = 'p'; // player start char
 	MapLoader mLoader;
 	
+        private int mapCount;
 	
 	public MapHandler() {
 		mLoader = new MapLoader();
+            File directory=new File("assets/levels/"); //Zähle anz. and dateien
+            mapCount=directory.list().length; 
 
 	}
 	
@@ -47,9 +50,8 @@ public class MapHandler {
 	}
 	
 	public void changeMap(int nr) {
-            File directory=new File("assets/levels/"); //Zähle anz. and dateien
-            int fileCount=directory.list().length; 
-            if (nr > fileCount){ //wenn nummer nicht in map
+            
+            if (nr > mapCount){ //wenn nummer nicht in map
                 return;
             }
 		map = mLoader.loadMap(Integer.toString(nr));
@@ -128,7 +130,9 @@ public class MapHandler {
 	}
 	
 	
-	
+	public int getMapCount(){
+            return mapCount;
+        }
 	
 	public Map getMap() {
 		return map;

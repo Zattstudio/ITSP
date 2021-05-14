@@ -2,6 +2,8 @@ package main;
 
 import java.awt.image.BufferedImageOp;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.GameContainer;
@@ -13,6 +15,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import map.MapHandler;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import scene.Background;
 import scene.SidePanel;
@@ -29,7 +33,7 @@ String drawmsg = "";
 MapHandler mHandler;
 Grid grid;
 SidePanel panel;
-
+SoundManager sm = new SoundManager();
 
 
 Background bg = new Background("assets/gfx/scene/bg1.png", 4);
@@ -45,6 +49,7 @@ int mapId = 1;                                                                  
     }
 
     public void resetMap(){
+        sm.play(SoundManager.SOUNDS.RESET);
         zuege = mHandler.getMap().turns;
         mHandler.changeMap(mapId);   
     }
@@ -90,13 +95,17 @@ int mapId = 1;                                                                  
 	    if (nextBlock  != '#' && nextBlock  != ' '&& nextBlock != '+' ){
 			mHandler.setCurrentX(mHandler.getCurrentX()+dirX);
 			mHandler.setCurrentY(mHandler.getCurrentY()+dirY);
-			
+                        
+			sm.play(SoundManager.SOUNDS.WALK);
+                        
 			zuege -= 1;
 			drawmsg = "Züge: " + zuege + "\n";
 			if(nextBlock=='x') {
 				playerLives -= 1;
+                                sm.play(SoundManager.SOUNDS.HIT);
 			}
                         if(nextBlock=='e') {                                    //
+                            sm.play(SoundManager.SOUNDS.FINISH);
                             mapId++;                                               //Wenn next Block = e, nächstes Level
                             mHandler.changeMap(mapId);  
                             //Aktualisieren der map-voreinstellungen
@@ -151,6 +160,7 @@ int mapId = 1;                                                                  
 	    
             if (playerLives <= 0){
                 // Wenn keine leben mehr reset komplett
+                sm.play(SoundManager.SOUNDS.DEATH);
                 this.init(gc, sbg);
                 sbg.enterState(1); // maybe add game over screen
 
