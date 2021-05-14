@@ -2,6 +2,7 @@ package main;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import utility.Numbers;
                                              //test
 
 import map.MapHandler;
@@ -75,7 +76,7 @@ public class Grid extends GameObject {
 					rock.draw(currentX, currentY, tileSize/rock.getWidth()+1);
 				}
 				else if  ((char) m.getTile(j, i) == '.') {
-					ground.draw(currentX, currentY, tileSize/ground.getWidth());
+                                    if(Numbers.isPrime(j)) ground.draw(currentX, currentY, tileSize/ground.getWidth());
 				}
 				else if  ((char) m.getTile(j, i) == 'e') {
 					end_door.draw(currentX, currentY, tileSize/end_door.getWidth());

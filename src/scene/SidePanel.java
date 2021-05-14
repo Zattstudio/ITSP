@@ -20,6 +20,10 @@ import utility.Vector2;
 public class SidePanel  extends GameObject{
 	
 	Image treeImg;
+        
+        
+        Image state1Img;
+        Image state2Img;
         int lives = 0;
         
         
@@ -49,7 +53,11 @@ public class SidePanel  extends GameObject{
                     // load image 
                     treeImg = new Image("assets/gfx/scene/ui_tree.png");
                     treeImg.setFilter(Image.FILTER_NEAREST);
-
+                    
+                    state1Img = new Image("assets/gfx/scene/player_state_1.png");
+                    state2Img = new Image("assets/gfx/scene/player_state_2.png");
+                    state1Img.setFilter(Image.FILTER_NEAREST);
+                    state2Img.setFilter(Image.FILTER_NEAREST);
             } catch (SlickException e) {
                     // Simple catch block
                     e.printStackTrace();
@@ -61,13 +69,15 @@ public class SidePanel  extends GameObject{
                 
                 treeImg.draw(1920-treeImg.getWidth()*5, 0, 5);
                 panelTtf.drawString(1700, 200, "Hallo");
-                drawLifeBar(lives, gfx );
+                drawLife(lives, gfx );
 		restartBtn.draw(gfx);
+                
 		
 	}
         
-        private void drawLifeBar(int lives, Graphics gfx){
-
+        private void drawLife(int lives, Graphics gfx){
+            if (lives > 2) state1Img.draw(1750, 450, 4);
+            else state2Img.draw(1750, 450, 4);
             gfx.fillRect(1700, 550, (int)66*lives, 20);
         }
 
