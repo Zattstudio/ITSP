@@ -15,6 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import map.MapHandler;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -33,6 +34,7 @@ MapHandler mHandler;
 Grid grid;
 SidePanel panel;
 SoundManager sm = new SoundManager();
+
 
 boolean finished = false;
 
@@ -71,7 +73,7 @@ int mapId = 1;                                                                  
         
         zuege = mHandler.getMap().turns;
         
-        
+        sm.toggleMusic(true);
     }
 
     @Override
@@ -164,7 +166,9 @@ int mapId = 1;                                                                  
             if (playerLives <= 0){
                 // Wenn keine leben mehr reset komplett
                 sm.play(SoundManager.SOUNDS.DEATH);
+                 sm.toggleMusic(false);
                 this.init(gc, sbg);
+               
                 sbg.enterState(2); // maybe add game over screen
 
             }
@@ -174,7 +178,9 @@ int mapId = 1;                                                                  
             }
             
             if (finished){
+                sm.toggleMusic(false);
                 this.init(gc, sbg);
+                
                 sbg.enterState(2); // spiel beendet
             }
     }

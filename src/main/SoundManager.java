@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.openal.Audio;
@@ -36,6 +37,9 @@ public class SoundManager{
     Sound death;
     Sound finish;
     
+    Music music;
+    
+    
     Sound current;
     public void play(SoundManager.SOUNDS sound){
         switch(sound){
@@ -56,6 +60,15 @@ public class SoundManager{
                 break;
         }
     }
+    
+    public void toggleMusic(boolean on){
+        if(!on){
+            music.stop();
+        }
+        else{
+            music.loop();
+        }
+    }
 
     public SoundManager() {
         try {
@@ -64,6 +77,9 @@ public class SoundManager{
             reset = new Sound("assets/sounds/2.wav");
             death = new Sound("assets/sounds/3.wav");
             finish = new Sound("assets/sounds/4.wav");
+            
+            music = new Music("assets/sounds/score.wav");
+            music.setVolume(1);
         } catch (SlickException ex) {
             Logger.getLogger(SoundManager.class.getName()).log(Level.SEVERE, null, ex);
         }
