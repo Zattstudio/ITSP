@@ -29,12 +29,12 @@ import utility.Vector2;
 public class GameState extends BasicGameState
 {
 public static final int ID = 0;
-String drawmsg = "";
 MapHandler mHandler;
 Grid grid;
 SidePanel panel;
 SoundManager sm = new SoundManager();
 
+boolean finished = false;
 
 Background bg = new Background("assets/gfx/scene/bg1.png", 4);
 
@@ -80,7 +80,6 @@ int mapId = 1;                                                                  
     	bg.draw(grphcs);
     	
     	
-    	grphcs.drawString("Zuege: " + zuege, 10, 40);
     	grid.draw(grphcs);
         grphcs.drawString("Map: "+ mapId,10, 60);
     	
@@ -99,17 +98,21 @@ int mapId = 1;                                                                  
 			sm.play(SoundManager.SOUNDS.WALK);
                         
 			zuege -= 1;
-			drawmsg = "Züge: " + zuege + "\n";
 			if(nextBlock=='x') {
 				playerLives -= 1;
                                 sm.play(SoundManager.SOUNDS.HIT);
 			}
                         if(nextBlock=='e') {                                    //
                             sm.play(SoundManager.SOUNDS.FINISH);
-                            mapId++;                                               //Wenn next Block = e, nächstes Level
-                            mHandler.changeMap(mapId);  
-                            //Aktualisieren der map-voreinstellungen
-                            zuege = mHandler.getMap().turns;
+                            if(mapId == mHandler.getMapCount()){
+                                // Ende vom spiel
+                                finished = true;
+                            }else{
+                                mapId++;                                               //Wenn next Block = e, nächstes Level
+                                mHandler.changeMap(mapId);  
+                                //Aktualisieren der map-voreinstellungen
+                                zuege = mHandler.getMap().turns;
+                            }
 			}                                                       //
 	    }
 	    else {
@@ -122,7 +125,7 @@ int mapId = 1;                                                                  
 	    int dirX = 0,dirY = 0;
 	    Input inp = gc.getInput();
             
-            panel.panelUpdate(gc, sbg, playerLives);
+            panel.panelUpdate(gc, sbg, playerLives, zuege, mapId + " - "+ mHandler.getMap().name);
             
             // update side panel
             if (panel.restartBtn.mouseIsOnButton(new Vector2(inp.getMouseX(), inp.getMouseY())) & inp.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
@@ -162,12 +165,16 @@ int mapId = 1;                                                                  
                 // Wenn keine leben mehr reset komplett
                 sm.play(SoundManager.SOUNDS.DEATH);
                 this.init(gc, sbg);
-                sbg.enterState(1); // maybe add game over screen
+                sbg.enterState(2); // maybe add game over screen
 
             }
             if (zuege <= 0){
             resetMap();
             
+            }
+            
+            if (finished){
+                sbg.enterState(2); // spiel beendet
             }
     }
     

@@ -9,6 +9,7 @@ import org.newdawn.slick.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,23 +26,34 @@ public class SidePanel  extends GameObject{
         Image state1Img;
         Image state2Img;
         int lives = 0;
+        int turns = 0;
+        String map = "";
         
+        FileInputStream fontstream;
         
         Font panelFont;
+        Font panelFontBig;
         TrueTypeFont panelTtf;
+        TrueTypeFont panelTtfBig;
         
 	public Button restartBtn = new Button("assets/gfx/menu/restart_button.png", new Vector2(1790, 890), 128, 128);
 
 	
-	public void panelUpdate(GameContainer gc, StateBasedGame sbg, int player_lives) {
+	public void panelUpdate(GameContainer gc, StateBasedGame sbg, int player_lives, int m_turns, String m_map) {
 		lives = player_lives;
+                turns = m_turns;
+                map = m_map;
 	}
         
         public SidePanel(){
             try { // Load font
-                this.panelFont = Font.createFont(Font.TRUETYPE_FONT, new File("assets/gfx/Pixeled.ttf"));
+                fontstream = new FileInputStream("assets/gfx/Pixeled.ttf");
+                panelFont = Font.createFont(Font.TRUETYPE_FONT, fontstream);
+                panelFont = panelFont.deriveFont(24F);
+                panelFontBig = panelFont.deriveFont(40F);
                 
                 panelTtf = new TrueTypeFont(panelFont, true);
+                panelTtfBig = new TrueTypeFont(panelFontBig, true);
             } catch (FontFormatException ex) {
                 Logger.getLogger(SidePanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -68,7 +80,10 @@ public class SidePanel  extends GameObject{
 		//gfx.fillRect(1300, 0, 620, 1080);
                 
                 treeImg.draw(1920-treeImg.getWidth()*5, 0, 5);
-                panelTtf.drawString(1700, 200, "Hallo");
+                panelTtfBig.drawString(1770, 150, Integer.toString(turns)); // draw turns left
+                panelTtf.drawString(1730, 130, "TURNS");
+                panelTtf.drawString(100, 250, map);
+                
                 drawLife(lives, gfx );
 		restartBtn.draw(gfx);
                 
