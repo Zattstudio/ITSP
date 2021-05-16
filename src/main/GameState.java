@@ -57,7 +57,8 @@ int mapId = 1;                                                                  
     
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        
+        mapId = 1;   
+        finished = false;
         playerLives = 3;
         mHandler = new MapHandler();
         mHandler.changeMap(mapId);                                                 //Change Map
@@ -81,7 +82,6 @@ int mapId = 1;                                                                  
     	
     	
     	grid.draw(grphcs);
-        grphcs.drawString("Map: "+ mapId,10, 60);
     	
     	
     	//draw last
@@ -174,6 +174,7 @@ int mapId = 1;                                                                  
             }
             
             if (finished){
+                this.init(gc, sbg);
                 sbg.enterState(2); // spiel beendet
             }
     }
