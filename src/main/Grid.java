@@ -76,7 +76,7 @@ public class Grid extends GameObject {
 					rock.draw(currentX, currentY, tileSize/rock.getWidth()+1);
 				}
 				else if  ((char) m.getTile(j, i) == '.') {
-                                    if(Numbers.isPrime(j)) ground.draw(currentX, currentY, tileSize/ground.getWidth());
+                                    ground.getFlippedCopy(i%3 != 0, i%2 == 0).draw(currentX, currentY, tileSize/ground.getWidth());
 				}
 				else if  ((char) m.getTile(j, i) == 'e') {
 					end_door.draw(currentX, currentY, tileSize/end_door.getWidth());
@@ -101,11 +101,10 @@ public class Grid extends GameObject {
                                         }
                                         
                                         
-//gfx.fillArc(currentX, currentY, tileSize, tileSize, 0f, 360f);    Player=Circle
 				}
                                 
 
-				//else gfx.drawRect(currentX, currentY, tileSize, tileSize);
+				
 				currentX += tileSize + offset;
 				
 				
