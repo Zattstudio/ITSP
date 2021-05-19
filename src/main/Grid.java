@@ -19,15 +19,19 @@ public class Grid extends GameObject {
         public boolean playerLeft = true;
 	public boolean front = false;
         public boolean back = false;
+        private boolean locked = true;
+        public boolean keyVisible = true;
         
-	private Image ground;
+	public Image ground;
 	private Image rock;
-	private Image end_door;
+	public Image end_door;
         private Image puddle;
         private Image gravestone;
         private Image player_side;
 	private Image player_front;
         private Image player_back;
+        public Image key;
+        public Image led;                                                      // locked end door
 	
 	public Grid(int xWidth, int yHeight, int tileSize, int offset, MapHandler m) {
 		super();
@@ -43,6 +47,8 @@ public class Grid extends GameObject {
 			end_door = new Image ("assets/gfx/scene/enddoor.png");
                         puddle = new Image ("assets/gfx/scene/puddle.png");
                         gravestone = new Image ("assets/gfx/scene/gravestone.png");
+                        key = new Image ("assets/gfx/scene/key.png");
+                        led = new Image ("assets/gfx/scene/locked_end_door.png");
               
                         player_side = new Image ("assets/gfx/scene/player.png");
                         player_front = new Image ("assets/gfx/scene/player_front.png");
@@ -58,12 +64,20 @@ public class Grid extends GameObject {
 		end_door.setFilter(Image.FILTER_NEAREST);
                 puddle.setFilter(Image.FILTER_NEAREST);
                 gravestone.setFilter(Image.FILTER_NEAREST);
+                key.setFilter(Image.FILTER_NEAREST);
+                led.setFilter(Image.FILTER_NEAREST);
                 
                 player_side.setFilter(Image.FILTER_NEAREST);                    
                 player_front.setFilter(Image.FILTER_NEAREST);
                 player_back.setFilter(Image.FILTER_NEAREST);
         }
 	
+        public void unlock(){
+            locked = false;
+        }
+        public void lock(){
+            locked = true;
+        }
         
 	@Override
 	public void draw(Graphics gfx) {
@@ -86,6 +100,13 @@ public class Grid extends GameObject {
 				}
                                 else if  ((char) m.getTile(j, i) == '+') {
 					gravestone.draw(currentX, currentY, tileSize/gravestone.getWidth());
+				}
+                                else if  ((char) m.getTile(j, i) == 'k' && keyVisible) {
+					key.draw(currentX, currentY, tileSize/key.getWidth());
+				}
+                                else if  ((char) m.getTile(j, i) == 'l') {
+                                    if(locked) led.draw(currentX, currentY, tileSize/led.getWidth());
+                                    else end_door.draw(currentX, currentY, tileSize/end_door.getWidth());
 				}
                                 
 				if (j == m.getCurrentX() && i == m.getCurrentY()) {

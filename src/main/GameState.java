@@ -35,7 +35,7 @@ Grid grid;
 SidePanel panel;
 SoundManager sm = new SoundManager();
 
-
+boolean locked = true;
 boolean finished = false;
 
 Background bg = new Background("assets/gfx/scene/bg1.png", 4);
@@ -53,13 +53,17 @@ int mapId = 1;                                                                  
     public void resetMap(){
         sm.play(SoundManager.SOUNDS.RESET);
         zuege = mHandler.getMap().turns;
-        mHandler.changeMap(mapId);   
+        mHandler.changeMap(mapId);
+        locked = true;
+        grid.lock();
+        grid.keyVisible = true;
     }
     
     
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        mapId = 1;   
+        mapId = 1;
+        locked = true;
         finished = false;
         playerLives = 3;
         mHandler = new MapHandler();
@@ -68,6 +72,7 @@ int mapId = 1;                                                                  
         Vector2 mapSize = mHandler.getMaxExtents();
         grid = new Grid((int)mapSize.x, (int)mapSize.y, 100, 0, mHandler);
         grid.setPos(200, 400);
+        grid.keyVisible = true;
         
         panel = new SidePanel();
         
@@ -104,6 +109,27 @@ int mapId = 1;                                                                  
 				playerLives -= 1;
                                 sm.play(SoundManager.SOUNDS.HIT);
 			}
+                        if(nextBlock=='k') {
+				locked = false;
+                                grid.unlock();
+                                grid.keyVisible = false;
+                                if(!grid.keyVisible) sm.play(SoundManager.SOUNDS.FINISH);
+			}
+                        if((nextBlock=='l') && (locked==false)) {
+                                sm.play(SoundManager.SOUNDS.FINISH);
+                            if(mapId == mHandler.getMapCount()){
+                                // Ende vom spiel
+                                finished = true;
+                            }else{
+                                mapId++;                                               //Wenn next Block = e, nächstes Level
+                                mHandler.changeMap(mapId);
+                                locked = true;
+                                grid.lock();
+                                grid.keyVisible = true;
+                                //Aktualisieren der map-voreinstellungen
+                                zuege = mHandler.getMap().turns;
+                            }
+			}
                         if(nextBlock=='e') {                                    //
                             sm.play(SoundManager.SOUNDS.FINISH);
                             if(mapId == mHandler.getMapCount()){
@@ -111,7 +137,10 @@ int mapId = 1;                                                                  
                                 finished = true;
                             }else{
                                 mapId++;                                               //Wenn next Block = e, nächstes Level
-                                mHandler.changeMap(mapId);  
+                                mHandler.changeMap(mapId); 
+                                locked = true;
+                                grid.lock();
+                                grid.keyVisible = true;
                                 //Aktualisieren der map-voreinstellungen
                                 zuege = mHandler.getMap().turns;
                             }
