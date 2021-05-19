@@ -43,6 +43,7 @@ public class MainGame extends StateBasedGame {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new ScalableGame(new MainGame("ITProjekt"), 1920, 1080) );
 			appgc.setDisplayMode(WIDTH,HEIGHT , false); 
+                        
                         appgc.setShowFPS(true);
                         appgc.setTargetFrameRate(60);
 			appgc.start();

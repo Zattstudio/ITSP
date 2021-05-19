@@ -74,6 +74,8 @@ public class SidePanel  extends GameObject{
                     // Simple catch block
                     e.printStackTrace();
             }
+            
+
         }
         @Override
         public void draw(Graphics gfx) {
