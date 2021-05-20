@@ -39,7 +39,7 @@ boolean locked = true;
 boolean lockedM = true;
 boolean finished = false;
 
-Background bg = new Background("assets/gfx/scene/bg1.png", 4);
+Background bg;
 
 int zuege = 0;
 int playerLives = 3;
@@ -66,7 +66,7 @@ int mapId = 1;                                                                  
     
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        mapId = 1;
+        mapId = 13;
         locked = true;
         lockedM = true;
         finished = false;
@@ -81,7 +81,7 @@ int mapId = 1;                                                                  
         grid.keyMVisible = true;
         
         panel = new SidePanel();
-        
+        bg = new Background("assets/gfx/scene/"+mHandler.getMap().bg+".png", 4);
         zuege = mHandler.getMap().turns;
         
         sm.toggleMusic(true);
@@ -159,6 +159,7 @@ int mapId = 1;                                                                  
                                 grid.keyMVisible = true;
                                 //Aktualisieren der map-voreinstellungen
                                 zuege = mHandler.getMap().turns;
+                                bg = new Background("assets/gfx/scene/"+mHandler.getMap().bg+".png", 5);
                             }
 			}
                         if(nextBlock=='e') {                                    //
@@ -176,21 +177,6 @@ int mapId = 1;                                                                  
                                 zuege = mHandler.getMap().turns;
                             }
 			}                                                       //
-                        if(nextBlock=='m') {                                    //
-                            sm.play(SoundManager.SOUNDS.FINISH);
-                            if(mapId == mHandler.getMapCount()){
-                                // Ende vom spiel
-                                finished = true;
-                            }else{
-                                mapId++;                                               //Wenn next Block = e, nächstes Level
-                                mHandler.changeMap(mapId); 
-                                lockedM = true;
-                                grid.lockM();
-                                grid.keyMVisible = true;
-                                //Aktualisieren der map-voreinstellungen
-                                zuege = mHandler.getMap().turns;
-                            }
-			}
 	    }
 	    else {
 	    	//Collision
