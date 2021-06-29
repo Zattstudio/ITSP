@@ -66,7 +66,7 @@ int mapId = 1;                                                                  
     
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        mapId = 13;
+        mapId = 1;
         locked = true;
         lockedM = true;
         finished = false;
